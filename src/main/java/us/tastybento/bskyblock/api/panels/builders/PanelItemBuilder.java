@@ -29,19 +29,6 @@ public class PanelItemBuilder {
         return this;
     }
 
-    /**
-     * Set icon to player's head
-     * @param playerName - player's name
-     * @return PanelItemBuilder
-     */
-    public PanelItemBuilder icon(String playerName) {
-        this.icon = new ItemStack(Material.SKULL_ITEM, 1, (short) 3);
-        this.name = playerName;
-        this.playerHead = true;
-        return this;
-    }
-
-
     public PanelItemBuilder name(String name) {
         this.name = name;
         return this;

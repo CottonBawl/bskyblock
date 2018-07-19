@@ -20,7 +20,7 @@ public class Flag implements Comparable<Flag> {
 
     public enum Type {
         PROTECTION(Material.SHIELD),
-        SETTING(Material.COMMAND),
+        SETTING(Material.STONE),
         WORLD_SETTING(Material.GRASS);
 
         private Material icon;
@@ -200,7 +200,7 @@ public class Flag implements Comparable<Flag> {
             pib.description(user.getTranslation("protection.panel.flag-item.setting-layout", TextVariables.DESCRIPTION, user.getTranslation(getDescriptionReference())
                     , "[setting]", worldDetting));
             return pib.build();
-        } 
+        }
 
         // Get the island this user is on or their own
         Island island = plugin.getIslands().getIslandAt(user.getLocation()).orElse(plugin.getIslands().getIsland(user.getWorld(), user.getUniqueId()));

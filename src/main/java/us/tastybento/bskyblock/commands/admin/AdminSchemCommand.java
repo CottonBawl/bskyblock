@@ -74,7 +74,7 @@ public class AdminSchemCommand extends CompositeCommand {
             Block b = user.getPlayer().getLineOfSight(null, 20).stream().filter(x -> !x.getType().equals(Material.AIR)).findFirst().orElse(null);
             if (b != null) {
                 cb.setOrigin(b.getLocation());
-                user.getPlayer().sendBlockChange(b.getLocation(), Material.STAINED_GLASS,(byte)14);
+                user.getPlayer().sendBlockChange(b.getLocation(), Material.RED_SANDSTONE,(byte)14);
                 Bukkit.getScheduler().runTaskLater(getPlugin(),
                         () -> user.getPlayer().sendBlockChange(b.getLocation(), b.getType(), b.getData()), 20L);
 

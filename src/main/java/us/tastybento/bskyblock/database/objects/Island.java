@@ -10,11 +10,8 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
-import org.bukkit.block.BlockState;
-import org.bukkit.entity.Entity;
 import org.bukkit.util.Vector;
 
 import com.google.common.collect.ImmutableSet;
@@ -278,45 +275,6 @@ public class Island implements DataObject {
      */
     public int getRank(User user) {
         return members.getOrDefault(user.getUniqueId(), RanksManager.VISITOR_RANK);
-    }
-
-    /**
-     * @param material - Material
-     * @return count of how many tile entities of type mat are on the island at last count. Counts are done when a player places
-     * a tile entity.
-     */
-    public int getTileEntityCount(Material material, World world) {
-        int result = 0;
-        for (int x = getMinProtectedX() /16; x <= (getMinProtectedX() + getProtectionRange() - 1)/16; x++) {
-            for (int z = getMinProtectedZ() /16; z <= (getMinProtectedZ() + getProtectionRange() - 1)/16; z++) {
-                for (BlockState holder : world.getChunkAt(x, z).getTileEntities()) {
-                    if (onIsland(holder.getLocation())) {
-                        if (holder.getType() == material) {
-                            result++;
-                        } else if (material.equals(Material.REDSTONE_COMPARATOR_OFF)) {
-                            if (holder.getType().equals(Material.REDSTONE_COMPARATOR_ON)) {
-                                result++;
-                            }
-                        } else if (material.equals(Material.FURNACE)) {
-                            if (holder.getType().equals(Material.BURNING_FURNACE)) {
-                                result++;
-                            }
-                        } else if (material.toString().endsWith("BANNER") && holder.getType().toString().endsWith("BANNER")) {
-                            result++;
-                        } else if ((material.equals(Material.WALL_SIGN) || material.equals(Material.SIGN_POST))
-                                && (holder.getType().equals(Material.WALL_SIGN) || holder.getType().equals(Material.SIGN_POST))) {
-                            result++;
-                        }
-                    }
-                }
-                for (Entity holder : world.getChunkAt(x, z).getEntities()) {
-                    if (holder.getType().toString().equals(material.toString()) && onIsland(holder.getLocation())) {
-                        result++;
-                    }
-                }
-            }
-        }
-        return result;
     }
 
     @Override
